@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Avengers - Express</title>
+
+</head>
+
+<body>
+  <div>
+    <div>
+      <h1>Avengers</h1>
+      <h3>The saviours of Earth!</h3>
+      <hr />
+      <a href="/characters">
+        <button>View Characters</button>
+      </a>
+    </div>
+
+    <div>
+      <div>
+        <h3><strong>Add Characters:</strong></h3>
+      </div>
+
+
+      <div>
+        <!-- form to enter the avenger details -->
+        <form method="POST">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" />
+          </div>
+
+          <div>
+            <label for="age">Age</label>
+            <input type="text" class="form-control" id="age" />
+          </div>
+
+        </form>
+        <br />
+        <div class="text-right">
+          <button type="submit" id="btn">
+            Submit
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<!-- Inline script -->
+  <script type="text/javascript">
+
+    const addBtn = document.getElementById('btn');
+
+
+    addBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+
+
+      let charName = document.getElementById('name').value.trim(); //to remove whitespace characters from the start and end of a string
+      let charAge = document.getElementById('age').value.trim();
+
+      let newCharacter = {
+        name: charName,
+        age: parseInt(charAge),
+
+      };
+
+      // /////////////////////////////// create post method /////////////////////////////////////////
+      fetch('/characters',{
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify(newCharacter),
+      })
+      .then ((response)=> response.json())
+      .then((data)=>{
+        console.log("add.html", data)
+      })
+      
+      
+
+
+    });
+  </script>
+</body>
+
+</html>
